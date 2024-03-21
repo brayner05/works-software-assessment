@@ -1,12 +1,23 @@
 import { faAngleLeft, faGear } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
+import { useNoteStore } from "../../GlobalStore"
 
 const Editor = () => {
     const { id } = useParams()
-    const [title, setTitle] = useState("New Note")
-    const [content, setContent] = useState("")
+
+    // Get the loaded note
+    const note = useNoteStore(state => state.notes)
+        .filter(note => note.id === id)
+        .pop()
+
+    const [title, setTitle] = useState(note ? note.title : "New Note")
+    const [content, setContent] = useState(note ? note.content : "")
+
+    useEffect(() => {
+        // updateNote(id, {title: title, content: content})
+    })
 
     return (
         <div className="flex-1">
