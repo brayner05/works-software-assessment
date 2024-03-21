@@ -10,6 +10,7 @@ export default {
             colors: {
                 secondary: "#1E1E1E",
             },
+            fontSize: {},
         },
     },
     plugins: [],

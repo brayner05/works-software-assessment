@@ -30,12 +30,12 @@ const Editor = () => {
                 </button>
             </nav>
             <input
-                className="w-full text-2xl font-semibold mb-5"
+                className="w-full text-2xl font-semibold mb-5 select-text"
                 defaultValue={title}
                 onChange={event => setTitle(event.target.value)}
             />
             <textarea
-                className="resize-none w-full"
+                className="resize-none w-full select-text"
                 defaultValue={content}
                 onChange={event => setContent(event.target.value)}
             ></textarea>

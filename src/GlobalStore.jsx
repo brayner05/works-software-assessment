@@ -5,7 +5,7 @@ const testId = uuidv4()
 
 export const useGroupStore = create(set => ({
     groups: [{ id: uuidv4(), name: "CSCI 1315", notes: [testId] }],
-    addGroup: (name, notes = [testId]) =>
+    addGroup: (name, notes = []) =>
         set(state => ({
             groups: [
                 ...state.groups,
