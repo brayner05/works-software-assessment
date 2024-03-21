@@ -5,11 +5,12 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useGroupStore } from "../../GlobalStore"
 import { v4 as uuidv4 } from "uuid"
+import Page from "./Page"
 
 const Home = () => {
     const groups = useGroupStore(state => state.groups)
     return (
-        <div className="w-full flex-1 relative">
+        <Page className="relative">
             <h1 className="mb-5 text-3xl font-semibold font-display">Notes</h1>
             {groups.map(group => (
                 <NoteGroup group={group} key={group.id} />
@@ -20,7 +21,7 @@ const Home = () => {
             >
                 <FontAwesomeIcon icon={faPlus} />
             </Link>
-        </div>
+        </Page>
     )
 }
 

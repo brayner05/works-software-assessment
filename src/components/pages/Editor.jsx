@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useNoteStore } from "../../GlobalStore"
+import Page from "./Page"
 
 const Editor = () => {
     const { id } = useParams()
@@ -20,7 +21,7 @@ const Editor = () => {
     })
 
     return (
-        <div className="flex-1">
+        <Page>
             <nav className="flex items-center justify-between text-xl mb-5">
                 <Link to="/">
                     <FontAwesomeIcon icon={faAngleLeft} />
@@ -39,7 +40,7 @@ const Editor = () => {
                 defaultValue={content}
                 onChange={event => setContent(event.target.value)}
             ></textarea>
-        </div>
+        </Page>
     )
 }
 

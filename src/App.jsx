@@ -7,7 +7,7 @@ import SelectGroup from "./components/pages/SelectGroup"
 
 const App = () => {
     return (
-        <div className="px-7 py-5 h-dvh flex flex-col select-none">
+        <div className="px-7 py-5 h-dvh max-h-dvh flex flex-col select-none">
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/select-group" element={<SelectGroup />} />
