@@ -9,12 +9,11 @@ const Editor = () => {
     const { id } = useParams()
 
     // Get the loaded note
-    const note = useNoteStore(state => state.notes)
-        .filter(note => note.id === id)
-        .pop()
+    const note = useNoteStore(state => state.notes).find(note => note.id === id)
 
     const [title, setTitle] = useState(note ? note.title : "New Note")
     const [content, setContent] = useState(note ? note.content : "")
+    console.log(note)
 
     useEffect(() => {
         // updateNote(id, {title: title, content: content})
