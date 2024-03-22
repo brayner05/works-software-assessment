@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import NoteThumbnail from "./NoteThumbnail"
-import { useNoteStore } from "../GlobalStore"
+import { useNoteStore } from "../NoteStore"
 
 const NoteGroup = ({ group }) => {
     const [collapsed, setCollapsed] = useState(false)

@@ -3,7 +3,7 @@ import NoteGroup from "../NoteGroup"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { useNoteStore } from "../../GlobalStore"
+import { useNoteStore } from "../../NoteStore"
 import { v4 as uuidv4 } from "uuid"
 import Page from "./Page"
 

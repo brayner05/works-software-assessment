@@ -2,7 +2,7 @@ import { faAngleLeft, faGear } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import { useNoteStore } from "../../GlobalStore"
+import { useNoteStore } from "../../NoteStore"
 import Page from "./Page"
 
 const Editor = () => {
