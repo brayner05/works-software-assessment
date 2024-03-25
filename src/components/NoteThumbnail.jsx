@@ -1,19 +1,35 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons"
+import { faEllipsis, faShare, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 const NoteThumbnail = ({ note }) => {
+    const [ctxMenuActive, setCtxMenuActive] = useState(false)
     return (
-        <div className="text-white bg-secondary cursor-pointer px-5 py-2 rounded-lg flex items-center mb-2">
+        <div className="text-white bg-secondary relative cursor-pointer px-5 py-2 rounded-lg flex items-center mb-2">
             <Link
                 to={`/editor/${note.id}`}
                 className="flex-1 font-medium font-body text-sm"
             >
                 {note.title}
             </Link>
-            <button>
+            <button onClick={() => setCtxMenuActive(!ctxMenuActive)}>
                 <FontAwesomeIcon icon={faEllipsis} />
             </button>
+            {ctxMenuActive ? (
+                <ul className="absolute top-full right-0 py-2 px-3 rounded-lg bg-secondary z-50">
+                    <li>
+                        <button className="mb-2">
+                            <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                    </li>
+                    <li>
+                        <button>
+                            <FontAwesomeIcon icon={faShare} />
+                        </button>
+                    </li>
+                </ul>
+            ) : undefined}
         </div>
     )
 }

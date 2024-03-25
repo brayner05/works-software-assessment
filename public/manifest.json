@@ -1,0 +1,8 @@
+{
+    "name": "Notes",
+    "short_name": "notes",
+    "description": "A fun, neat PWA for note taking. This app is mainly geared toward university/college notetaking but can be used for anything.",
+    "start_url": ".",
+    "display": "fullscreen",
+    "background_color": "#fff"
+}

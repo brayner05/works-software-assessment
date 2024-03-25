@@ -5,12 +5,21 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons"
 import { v4 as uuidv4 } from "uuid"
 import { useState } from "react"
 import Page from "./Page"
+import PromptBox from "../PromptBox"
+
+const validateGroupName = groupName => {
+    if (!groupName) {
+        return false
+    }
+    return true
+}
 
 const SelectGroup = () => {
     const navigate = useNavigate()
     const groups = useNoteStore(state => state.groups)
     const addGroup = useNoteStore(state => state.addGroup)
     const addNote = useNoteStore(state => state.addNote)
+    const [showNewGroupBox, setShowNewGroupBox] = useState(false)
     const [group, SetGroup] = useState(null)
 
     return (
@@ -24,7 +33,21 @@ const SelectGroup = () => {
                 <span className="block font-semibold text-2xl">
                     Choose a group
                 </span>
-                <button className="text-blue-500 mb-5">New group</button>
+                <button
+                    className="text-blue-500 mb-5"
+                    onClick={() => setShowNewGroupBox(true)}
+                >
+                    New group
+                </button>
+                {showNewGroupBox ? (
+                    <PromptBox
+                        title={"New Group"}
+                        onOk={value => {
+                            alert(value)
+                            setShowNewGroupBox(false)
+                        }}
+                    />
+                ) : undefined}
                 {groups.length > 0 ? (
                     <select
                         onChange={event => SetGroup(event.target.value)}
