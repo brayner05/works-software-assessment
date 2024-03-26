@@ -2,9 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEllipsis, faShare, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import { useNoteStore } from "../NoteStore"
 
 const NoteThumbnail = ({ note }) => {
     const [ctxMenuActive, setCtxMenuActive] = useState(false)
+    const deleteNote = useNoteStore(state => state.deleteNote)
+
     return (
         <div className="text-white bg-secondary relative cursor-pointer px-5 py-2 rounded-lg flex items-center mb-2">
             <Link
@@ -19,7 +22,10 @@ const NoteThumbnail = ({ note }) => {
             {ctxMenuActive ? (
                 <ul className="absolute top-full right-0 py-2 px-3 rounded-lg bg-secondary z-50">
                     <li>
-                        <button className="mb-2">
+                        <button
+                            className="mb-2"
+                            onClick={() => deleteNote(note.id)}
+                        >
                             <FontAwesomeIcon icon={faTrash} />
                         </button>
                     </li>

@@ -1,10 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import NoteGroup from "../NoteGroup"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
-import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useNoteStore } from "../../NoteStore"
-import { v4 as uuidv4 } from "uuid"
 import Page from "./Page"
 
 const Home = () => {
@@ -17,7 +15,7 @@ const Home = () => {
             ))}
             <Link
                 to="/select-group"
-                className="text-white bg-secondary flex items-center justify-center rounded-full text-xl p-4 fixed bottom-5 right-5"
+                className="text-white bg-secondary min-w-5 min-h-5 flex items-center justify-center rounded-full text-xl p-4 fixed bottom-5 right-5"
             >
                 <FontAwesomeIcon icon={faPlus} />
             </Link>

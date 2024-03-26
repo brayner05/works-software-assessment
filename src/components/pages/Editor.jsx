@@ -10,17 +10,17 @@ const Editor = () => {
 
     // Get the loaded note
     const note = useNoteStore(state => state.notes).find(note => note.id === id)
+    const updateNote = useNoteStore(state => state.updateNote)
 
     const [title, setTitle] = useState(note ? note.title : "New Note")
     const [content, setContent] = useState(note ? note.content : "")
-    console.log(note)
 
     useEffect(() => {
-        // updateNote(id, {title: title, content: content})
-    })
+        updateNote(note.id, title, content)
+    }, [title, content])
 
     return (
-        <Page>
+        <Page className="flex flex-col">
             <nav className="flex items-center justify-between text-xl mb-5">
                 <Link to="/">
                     <FontAwesomeIcon icon={faAngleLeft} />
@@ -36,7 +36,7 @@ const Editor = () => {
             />
             <hr className="my-3" />
             <textarea
-                className="resize-none w-full select-text"
+                className="resize-none w-full flex-1 select-text"
                 defaultValue={content}
                 onChange={event => setContent(event.target.value)}
             ></textarea>

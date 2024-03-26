@@ -43,4 +43,21 @@ export const useNoteStore = create(set => ({
             newGroups[groupIndex].notes.push(newNote.id)
             return { notes: [...state.notes, newNote], groups: newGroups }
         }),
+    updateNote: (id, title, content) =>
+        set(state => {
+            const note = state.notes.find(el => el.id === id)
+            if (!note) {
+                console.log(id)
+                return state
+            }
+
+            note.title = title
+            note.content = content
+            return state
+        }),
+    deleteNote: id =>
+        set(state => ({
+            notes: state.notes.filter(note => note.id !== id),
+            groups: state.groups,
+        })),
 }))

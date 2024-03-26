@@ -12,7 +12,9 @@ const PromptBox = ({ title, onOk }) => {
                     onChange={event => setValue(event.target.value)}
                 />
                 <div className="flex justify-end">
-                    <button onClick={() => onOk(value)}>Ok</button>
+                    <button className="" onClick={() => onOk(value)}>
+                        Ok
+                    </button>
                 </div>
             </div>
         </div>
