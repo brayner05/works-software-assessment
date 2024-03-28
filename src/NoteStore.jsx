@@ -23,15 +23,10 @@ export const useNoteStore = create(set => ({
             ],
         })),
 
-    addNote: (title, content, groupId) =>
+    addNote: ({ id, title, content, groupId }) =>
         set(state => {
-            const newNote = {
-                id: uuidv4,
-                title: title,
-                content: content,
-                group: groupId,
-            }
-
+            const newNote = { id, title, content, groupId }
+            console.table(newNote)
             const groupIndex = state.groups.findIndex(
                 group => group.id === groupId
             )
