@@ -4,8 +4,9 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { useNoteStore } from "../../NoteStore"
 import Page from "./Page"
+import React from "react"
 
-const Home = () => {
+const Home = (): React.JSX.Element => {
     const groups = useNoteStore(state => state.groups)
     return (
         <Page className="relative">

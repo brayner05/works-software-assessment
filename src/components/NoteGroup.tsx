@@ -1,14 +1,14 @@
 import { useState } from "react"
-import {
-    faCaretDown,
-    faCaretRight,
-    faEllipsis,
-} from "@fortawesome/free-solid-svg-icons"
+import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import NoteThumbnail from "./NoteThumbnail"
-import { useNoteStore } from "../NoteStore"
+import { Group, useNoteStore } from "../NoteStore"
 
-const NoteGroup = ({ group }) => {
+interface Props {
+    group: Group
+}
+
+const NoteGroup = ({ group }: Props) => {
     const [collapsed, setCollapsed] = useState(false)
     const notes = useNoteStore(state => state.notes).filter(note =>
         group.notes.includes(note.id)

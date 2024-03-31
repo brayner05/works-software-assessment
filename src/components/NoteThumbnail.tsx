@@ -2,10 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEllipsis, faShare, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import { useNoteStore } from "../NoteStore"
+import { Note, useNoteStore } from "../NoteStore"
 
-const NoteThumbnail = ({ note }) => {
-    const [ctxMenuActive, setCtxMenuActive] = useState(false)
+interface Props {
+    note: Note
+}
+
+const NoteThumbnail = ({ note }: Props) => {
+    const [ctxMenuActive, setCtxMenuActive] = useState<boolean>(false)
     const deleteNote = useNoteStore(state => state.deleteNote)
 
     return (

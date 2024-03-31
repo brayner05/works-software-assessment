@@ -12,11 +12,13 @@ const Editor = () => {
     const note = useNoteStore(state => state.notes).find(note => note.id === id)
     const updateNote = useNoteStore(state => state.updateNote)
 
-    const [title, setTitle] = useState(note ? note.title : "New Note")
-    const [content, setContent] = useState(note ? note.content : "")
+    const [title, setTitle] = useState<string>(note ? note.title : "New Note")
+    const [content, setContent] = useState<string>(note ? note.content : "")
 
     useEffect(() => {
-        updateNote(note.id, title, content)
+        if (note) {
+            updateNote(note.id, title, content, note.groupId)
+        }
     }, [title, content])
 
     return (

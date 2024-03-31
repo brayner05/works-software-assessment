@@ -6,13 +6,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useState } from "react"
 import Page from "./Page"
 import PromptBox from "../PromptBox"
-
-const validateGroupName = groupName => {
-    if (!groupName) {
-        return false
-    }
-    return true
-}
+import { Group } from "../../NoteStore"
 
 const SelectGroup = () => {
     const navigate = useNavigate()
@@ -20,7 +14,7 @@ const SelectGroup = () => {
     const addGroup = useNoteStore(state => state.addGroup)
     const addNote = useNoteStore(state => state.addNote)
     const [showNewGroupBox, setShowNewGroupBox] = useState(false)
-    const [group, SetGroup] = useState(null)
+    const [group, SetGroup] = useState<Group | null>(null)
 
     return (
         <Page className="flex flex-col justify-between">
@@ -39,6 +33,7 @@ const SelectGroup = () => {
                 >
                     New group
                 </button>
+
                 {showNewGroupBox ? (
                     <PromptBox
                         title={"New Group"}
@@ -48,14 +43,14 @@ const SelectGroup = () => {
                         }}
                     />
                 ) : undefined}
+
                 {groups.length > 0 ? (
-                    <select
-                        onChange={event => SetGroup(event.target.value)}
-                        className="block w-full px-3 py-2 bg-transparent rounded-md border-2 border-gray-400 focus:border-blue-500"
-                    >
+                    <select className="block w-full px-3 py-2 bg-transparent rounded-md border-2 border-gray-400 focus:border-blue-500">
                         <option>Choose a group</option>
                         {groups.map(group => (
-                            <option>{group.name}</option>
+                            <option onSelect={() => SetGroup(group)}>
+                                {group.name}
+                            </option>
                         ))}
                     </select>
                 ) : (
@@ -64,13 +59,20 @@ const SelectGroup = () => {
                     </p>
                 )}
             </div>
+
             <div className="flex justify-end">
                 {/*! Bug is here: going to random id instead of the notes id */}
                 {group ? (
                     <button
                         onClick={() => {
-                            addNote("New Note", "Hello!", "test")
-                            navigate(`/editor/${uuidv4()}`)
+                            const noteId = uuidv4()
+                            addNote({
+                                id: noteId,
+                                title: "New Note",
+                                content: "",
+                                groupId: group.id,
+                            })
+                            navigate(`/editor/${noteId}`)
                         }}
                         className="bg-green-500 text-white px-3 py-2 rounded-md"
                     >
