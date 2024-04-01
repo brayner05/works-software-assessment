@@ -14,7 +14,7 @@ const SelectGroup = () => {
     const addGroup = useNoteStore(state => state.addGroup)
     const addNote = useNoteStore(state => state.addNote)
     const [showNewGroupBox, setShowNewGroupBox] = useState(false)
-    const [group, SetGroup] = useState<Group | null>(null)
+    const [group, setGroup] = useState<Group | null>(null)
 
     return (
         <Page className="flex flex-col justify-between">
@@ -38,8 +38,10 @@ const SelectGroup = () => {
                     <PromptBox
                         title={"New Group"}
                         onOk={value => {
-                            alert(value)
-                            setShowNewGroupBox(false)
+                            if (value && value !== "") {
+                                addGroup(value, [])
+                                setShowNewGroupBox(false)
+                            }
                         }}
                     />
                 ) : undefined}
@@ -50,13 +52,14 @@ const SelectGroup = () => {
                             const selectedGroup = groups.find(
                                 group => group.id === event.target.value
                             )
-                            SetGroup(selectedGroup || null)
+                            setGroup(selectedGroup || null)
                         }}
                         className="block w-full px-3 py-2 bg-transparent rounded-md border-2 border-gray-400 focus:border-blue-500"
                     >
-                        <option>Choose a group</option>
                         {groups.map(group => (
-                            <option value={group.id}>{group.name}</option>
+                            <option value={group.id} key={group.id}>
+                                {group.name}
+                            </option>
                         ))}
                     </select>
                 ) : (
@@ -67,7 +70,6 @@ const SelectGroup = () => {
             </div>
 
             <div className="flex justify-end">
-                {/*! Bug is here: going to random id instead of the notes id */}
                 {group ? (
                     <button
                         onClick={() => {
