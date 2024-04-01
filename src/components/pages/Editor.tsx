@@ -8,8 +8,8 @@ import Page from "./Page"
 const Editor = () => {
     const { id } = useParams()
 
-    // Get the loaded note
-    const note = useNoteStore(state => state.notes).find(note => note.id === id)
+    const allNotes = useNoteStore(state => state.notes)
+    const note = allNotes.find(note => note.id === id)
     const updateNote = useNoteStore(state => state.updateNote)
 
     const [title, setTitle] = useState<string>(note ? note.title : "New Note")
@@ -18,6 +18,7 @@ const Editor = () => {
     useEffect(() => {
         if (note) {
             updateNote(note.id, title, content, note.groupId)
+            localStorage.setItem("notes", JSON.stringify(allNotes))
         }
     }, [title, content])
 

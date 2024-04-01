@@ -17,7 +17,9 @@ export interface Group {
 interface NoteState {
     notes: Note[]
     groups: Group[]
-    addGroup: (name: string, notes: string[]) => void
+    setNotes: (notes: Note[]) => void
+    setGroups: (groups: Group[]) => void
+    addGroup: (name: string, notes?: string[], id?: string) => void
     addNote: (note: Note) => void
     updateNote: (
         id: string,
@@ -32,12 +34,17 @@ export const useNoteStore = create<NoteState>(set => ({
     notes: [],
     groups: [],
 
-    addGroup: (name: string, notes: string[] = []) =>
+    setNotes: (notes: Note[]) => {
+        console.log(notes)
+        return set(state => ({ notes: notes, groups: state.groups }))
+    },
+
+    setGroups: (groups: Group[]) =>
+        set(state => ({ notes: state.notes, groups: groups })),
+
+    addGroup: (name: string, notes: string[] = [], id = uuidv4()) =>
         set(state => ({
-            groups: [
-                ...state.groups,
-                { id: uuidv4(), name: name, notes: notes },
-            ],
+            groups: [...state.groups, { id: id, name: name, notes: notes }],
         })),
 
     addNote: (note: Note) =>

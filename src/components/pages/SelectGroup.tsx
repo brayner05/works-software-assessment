@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons"
 import { v4 as uuidv4 } from "uuid"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Page from "./Page"
 import PromptBox from "../PromptBox"
 import { Group } from "../../NoteStore"
@@ -11,13 +11,21 @@ import GroupList from "../GroupList"
 
 const SelectGroup = () => {
     const navigate = useNavigate()
+
     const groups = useNoteStore(state => state.groups)
     const addGroup = useNoteStore(state => state.addGroup)
     const addNote = useNoteStore(state => state.addNote)
+
     const [showNewGroupBox, setShowNewGroupBox] = useState(false)
     const [group, setGroup] = useState<Group | null>(groups[0] || null)
+    const [newGroupName, setNewGroupName] = useState<string>("")
 
-    // TODO: Break this component into smaller subcomponents
+    useEffect(() => {
+        if (newGroupName === "") {
+            return
+        }
+        localStorage.setItem("groups", JSON.stringify(groups))
+    }, [newGroupName])
 
     return (
         <Page className="flex flex-col justify-between">
@@ -42,7 +50,8 @@ const SelectGroup = () => {
                         title={"New Group"}
                         onOk={value => {
                             if (value && value !== "") {
-                                addGroup(value, [])
+                                addGroup(value)
+                                setNewGroupName(value)
                                 setShowNewGroupBox(false)
                             }
                         }}
