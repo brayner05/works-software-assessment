@@ -1,9 +1,6 @@
 import { create } from "zustand"
 import { v4 as uuidv4 } from "uuid"
 
-const testId = uuidv4()
-const groupTestId = "test"
-
 export interface Note {
     id: string
     title: string
@@ -32,15 +29,8 @@ interface NoteState {
 }
 
 export const useNoteStore = create<NoteState>(set => ({
-    notes: [
-        {
-            id: testId,
-            title: "Combinatorics",
-            content: "Hello World",
-            groupId: groupTestId,
-        },
-    ],
-    groups: [{ id: groupTestId, name: "CSCI 1315", notes: [testId] }],
+    notes: [],
+    groups: [],
 
     addGroup: (name: string, notes: string[] = []) =>
         set(state => ({

@@ -7,6 +7,7 @@ import { useState } from "react"
 import Page from "./Page"
 import PromptBox from "../PromptBox"
 import { Group } from "../../NoteStore"
+import GroupList from "../GroupList"
 
 const SelectGroup = () => {
     const navigate = useNavigate()
@@ -14,7 +15,9 @@ const SelectGroup = () => {
     const addGroup = useNoteStore(state => state.addGroup)
     const addNote = useNoteStore(state => state.addNote)
     const [showNewGroupBox, setShowNewGroupBox] = useState(false)
-    const [group, setGroup] = useState<Group | null>(null)
+    const [group, setGroup] = useState<Group | null>(groups[0] || null)
+
+    // TODO: Break this component into smaller subcomponents
 
     return (
         <Page className="flex flex-col justify-between">
@@ -46,27 +49,15 @@ const SelectGroup = () => {
                     />
                 ) : undefined}
 
-                {groups.length > 0 ? (
-                    <select
-                        onChange={event => {
-                            const selectedGroup = groups.find(
-                                group => group.id === event.target.value
-                            )
-                            setGroup(selectedGroup || null)
-                        }}
-                        className="block w-full px-3 py-2 bg-transparent rounded-md border-2 border-gray-400 focus:border-blue-500"
-                    >
-                        {groups.map(group => (
-                            <option value={group.id} key={group.id}>
-                                {group.name}
-                            </option>
-                        ))}
-                    </select>
-                ) : (
-                    <p className="text-lg">
-                        You have not created any note groups
-                    </p>
-                )}
+                <GroupList
+                    groups={groups}
+                    onChange={event => {
+                        const selectedGroup = groups.find(
+                            group => group.id === event.target.value
+                        )
+                        setGroup(selectedGroup || null)
+                    }}
+                />
             </div>
 
             <div className="flex justify-end">
