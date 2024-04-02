@@ -20,6 +20,7 @@ interface NoteState {
     setNotes: (notes: Note[]) => void
     setGroups: (groups: Group[]) => void
     addGroup: (name: string, notes?: string[], id?: string) => void
+    deleteGroup: (id: string) => void
     addNote: (note: Note) => void
     updateNote: (
         id: string,
@@ -45,6 +46,12 @@ export const useNoteStore = create<NoteState>(set => ({
     addGroup: (name: string, notes: string[] = [], id = uuidv4()) =>
         set(state => ({
             groups: [...state.groups, { id: id, name: name, notes: notes }],
+        })),
+
+    deleteGroup: (id: string) =>
+        set(state => ({
+            notes: state.notes.filter(note => note.groupId !== id),
+            groups: state.groups.filter(group => group.id !== id),
         })),
 
     addNote: (note: Note) =>
