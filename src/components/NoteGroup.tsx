@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
     faCaretDown,
     faCaretRight,
@@ -14,8 +14,8 @@ interface Props {
 
 const NoteGroup = ({ group }: Props) => {
     const deleteGroup = useNoteStore(state => state.deleteGroup)
-    const notes = useNoteStore(state => state.notes).filter(note =>
-        group.notes.includes(note.id)
+    const notes = useNoteStore(state => state.notes).filter(
+        note => note.groupId === group.id
     )
 
     const [collapsed, setCollapsed] = useState<boolean>(false)
